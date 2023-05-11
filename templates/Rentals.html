@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Library System</title>
+    <style>
+        .table-row:hover{
+            background-color:#6d7792;
+        }
+        .delete-btn{
+            background-color:#a11616;
+             color:white;
+              border-radius:10px;
+              border:none;
+               padding:3px 10px
+        }
+        .delete-btn:hover{
+            background-color: red;
+            cursor: pointer;
+
+        }
+        .add-btn{
+            background-color:#2e63b2;
+             color:rgb(1, 1, 1);
+             border-radius:5px;
+             border:none;
+              padding:10px 5px;
+              width:20vh;
+              font-weight:600;
+
+        }
+        .add-btn:hover{
+           opacity:0.8;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+{% include "index.html"%}
+<div style = "width:100%; display:flex; flex-direction: row; margin:0 auto;padding :25px; gap:10px; justify-content:flex-beginning">
+<h2 style="color:white">Rentals</h2>
+</div>
+</div>
+<table style="width:90%; margin:0 auto; border-radius:4px; background:rgb(79, 79, 79); padding:10px; table-layout: fixed; word-wrap:break-word">
+<tr style="color:white; border-collapse:collapse; border-bottom: 1px solid rgb(207, 207, 207); font-size:20px">
+    <th style = "text-align: center;vertical-align:middle; padding: 5px">#</th>
+    <th style = "text-align: center;vertical-align:middle; padding: 5px">Book</th>
+    <th style = "text-align: center;vertical-align:middle; padding: 5px">Client Name</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">Duration (days)</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">Start Date</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">End Date</th>
+</tr>
+{% for rental in rentals %}
+    <tr class="table-row" style="color:white; border-collapse:collapse; padding:30px; border-bottom: 1px solid rgb(207, 207, 207); " >
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{rental.id}}</td>
+
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">
+        {% for book in books %}
+            {% if rental.bookId == book.id %}
+               {{book.title}}
+            {% endif %}
+        {% endfor %}
+        </td>
+
+        {% for client in clients %}
+            {% if rental.clientId == client.id %}
+                <td style = "text-align: center;vertical-align:middle; padding: 10px">{{client.name}}</td>
+            {% endif %}
+        {% endfor %}
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{rental.duration}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{rental.startDate}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{rental.endDate}}</td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

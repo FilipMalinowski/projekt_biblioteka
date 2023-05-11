@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Library System</title>
+    <style>
+        .table-row:hover{
+            background-color:#6d7792;
+        }
+        .delete-btn{
+            background-color:#a11616;
+             color:white;
+              border-radius:10px;
+              border:none;
+               padding:3px 10px
+        }
+        .delete-btn:hover{
+            background-color: red;
+            cursor: pointer;
+
+        }
+        .add-btn{
+            background-color:#2e63b2;
+             color:rgb(1, 1, 1);
+             border-radius:5px;
+             border:none;
+              padding:10px 5px;
+              width:20vh;
+              font-weight:600;
+        }
+        .add-btn:hover{
+           opacity:0.8;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+{% include "index.html"%}
+<div style = "width:100%; display:flex; flex-direction: row; text-align:center; margin:0 auto;padding :25px; gap:10px; justify-content:flex-beginning">
+<h2 style="color:white">Clients</h2>
+<a style="color:rgb(1, 1, 1); text-decoration:none" href="Add"><button type="submit" class="add-btn">Add client</button></a>
+</div>
+<table style="width:97%; margin:0 auto; border-radius:4px; background:rgb(79, 79, 79); padding:10px; table-layout: fixed; word-wrap:break-word">
+<tr style="color:white; border-collapse:collapse; border-bottom: 1px solid rgb(207, 207, 207); font-size:20px">
+    <th style = "text-align: center;vertical-align:middle; padding: 5px">#</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">Name</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">E-mail</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">Birth date</th>
+    <th style = "text-align: center;vertical-align:middle;padding: 5px">Delete client</th>
+</tr>
+{% for client in clients %}
+    <tr class="table-row" style="color:white; border-collapse:collapse; padding:30px; border-bottom: 1px solid rgb(207, 207, 207); " >
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{client.id}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{client.name}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{client.mail}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">{{client.birthDate}}</td>
+        <td style = "text-align: center;vertical-align:middle; padding: 10px">
+            <form action="{{ url_for('delete_client') }}" method=post class=delete-client>
+            <input type=hidden value="{{ client.id }}"name=client_to_delete /><input type=submit value="Delete"  class="delete-btn"/>
+        </form>
+    </td>
+    </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
+
